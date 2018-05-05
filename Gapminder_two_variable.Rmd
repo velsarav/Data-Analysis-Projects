@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output:
+  html_notebook: default
+  html_document: default
+  pdf_document: default
+---
+
+***
+### Quiz 16
+# In your investigation, examine pairs of variable and create 2-5 plots that make
+# use of the techniques from Lesson 4.
+
+# You can find a link to the Gapminder website in the Instructor Notes.
+
+# Once you've completed your investigation, create a post in the discussions that includes:
+#       1. the variable(s) you investigated, your observations, and any summary statistics
+#       2. snippets of code that created the plots
+#       3. links to the images of your plots
+
+# Copy and paste all of the code that you used for
+# your investigation, and submit it when you are ready.
+# ====================================================================
+```{r}
+
+library(reshape2)
+library(plyr)
+library(readxl)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(gridExtra)
+
+#Data Munging
+agriculture_gdp <- read_excel('Agriculture (p of GDP).xlsx', sheet = 1)
+
+# Fix name of country column
+colnames(agriculture_gdp)[1] <- "Country"
+
+# Reshape data
+agriculture_gdp <- gather(agriculture_gdp, 'Year', 'GDP', 2:length(agriculture_gdp)) 
+
+# Remove NA values
+agriculture_gdp <- agriculture_gdp[complete.cases(agriculture_gdp), ]
+
+#Plot the data
+ggplot(agriculture_gdp, aes(Year, GDP)) + 
+  geom_point()
+
+#view data
+head(agriculture_gdp)
+View(agriculture_gdp)
+
+#Mean and Median in Agriculture GDP
+group_year <- group_by(agriculture_gdp, Year)
+agriculture_gdp_year <- summarise(group_year,
+                                  agriculture_gdp_mean = mean(GDP),
+                                  agriculture_gdp_median = median(GDP),
+                                  n = n())
+head(agriculture_gdp_year)
+View(agriculture_gdp_year)
+
+#Plot Mean and Median
+ggplot()+
+  geom_point(aes(x = Year, y = agriculture_gdp_mean), data = agriculture_gdp_year) +
+  geom_point(aes(x = Year, y = agriculture_gdp_median), data = agriculture_gdp_year, color = 'red')
+
+#Singapore and Thailand agriculture GDP
+agriculture_gdp_sg = filter(agriculture_gdp, Country == "Singapore")
+agriculture_gdp_th = filter(agriculture_gdp, Country == "Thailand")
+
+#Join GDP
+agriculture_gdp_sg_th <- left_join(agriculture_gdp_sg, agriculture_gdp_th, by = "Year")
+
+#View combined GDP of Singapore and Thailand
+head(agriculture_gdp_sg_th)
+View(agriculture_gdp_sg_th)
+
+#Correlation coefficient of two variables
+corr_Value = as.character(round(cor(agriculture_gdp_sg_th$GDP.x,agriculture_gdp_sg_th$GDP.y), 2))
+
+#Plot the correlation coefficient
+agriculture_gdp_sg_th %>% ggplot(aes(x = GDP.y, y = GDP.x)) + 
+                      geom_point(aes(color = Year), show.legend = TRUE) + 
+                      geom_smooth(method = 'lm', color = 'red', se = 0.95) + 
+                      labs(x = "Agriculture GDP Singapore", y = "Agriculture GDP Thailand", 
+                           title = "Agriculture GDP Correlation neighboring economies", 
+                           subtitle = paste("Singapore and Thailand --> Agriculture GDP correlation",
+                                  corr_Value, sep = ": "))
+
+```
+
+

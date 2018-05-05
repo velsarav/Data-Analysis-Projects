@@ -1,0 +1,115 @@
+---
+title: "R Notebook"
+output:
+  html_notebook: default
+  html_document: default
+---
+
+*** 
+### Quiz 111
+
+# The Gapminder website contains over 500 data sets with information about
+# the world's population. Your task is to continue the investigation you did at the
+# end of Problem Set 4 or you can start fresh and choose a different
+# data set from Gapminder.
+
+# If you???re feeling adventurous or want to try some data munging see if you can
+# find a data set or scrape one from the web.
+
+# In your investigation, examine 3 or more variables and create 2-5 plots that make
+# use of the techniques from Lesson 5.
+
+# You can find a link to the Gapminder website in the Instructor Notes.
+
+# Once you've completed your investigation, create a post in the discussions that includes:
+#       1. the variable(s) you investigated, your observations, and any summary statistics
+#       2. snippets of code that created the plots
+#       3. links to the images of your plots
+
+# Copy and paste all of the code that you used for
+# your investigation, and submit it when you are ready.
+# ============================================================================================
+
+```{r}
+
+library(reshape2)
+library(plyr)
+library(readxl)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(gridExtra)
+
+#Read excel
+internet_user <- read_excel('Internet user per 100.xlsx', sheet = 1)
+cellphone_user <- read_excel('cell phone per 100.xlsx', sheet = 1)
+
+#First column name as Country
+colnames(internet_user)[1] <- "Country"
+colnames(cellphone_user)[1] <- "Country"
+
+#Gather complete data
+internet_user <- gather(internet_user, 'Year', 'Internet', 2:length(internet_user)) 
+cellphone_user <- gather(cellphone_user, 'Year', 'Cellphone', 2:length(cellphone_user)) 
+
+# Remove NA values
+internet_user <- internet_user[complete.cases(internet_user), ]
+cellphone_user <- cellphone_user[complete.cases(cellphone_user), ]
+
+#Convert Year as number
+internet_user$Year <- as.integer(as.character(internet_user$Year))
+cellphone_user$Year <- as.integer(as.character(cellphone_user$Year))
+
+#Get the vlaues per decade
+internet_user <- transform(internet_user,decade=cut(Year,
+                                                    c(1960, 1970, 1980,1990,2000,2010),dig.lab=5))
+cellphone_user <- transform(cellphone_user,decade=cut(Year,
+                                                    c(1960, 1970, 1980,1990,2000,2010),dig.lab=5))
+
+#plot the data
+p1 <- ggplot(aes(Year, Internet), data = internet_user) +
+  geom_line(stat="summary", fun.y=mean) +
+  geom_point(aes(color=decade),alpha=0.1) +
+  labs(color="Year Joined", title = 'Internet user per 100')
+
+
+p2 <- ggplot(aes(Year, Cellphone), data = cellphone_user) +
+  geom_line(stat="summary", fun.y=mean) +
+  geom_point(aes(color=decade),alpha=0.1) +
+  labs(color="Year Joined", title = 'Cellphone user per 100')
+
+grid.arrange(p1, p2, ncol=1)
+
+#Merge internet and Cellphone user
+internet_cellphone_user <- inner_join(internet_user, cellphone_user)
+summary(internet_cellphone_user)
+summary(internet_cellphone_user$decade)
+
+#Time Series plot
+ggplot(aes(Internet, Cellphone), data=internet_cellphone_user) +
+  geom_jitter(alpha=.5, shape=21, fill=I("#F79420")) +
+  ggtitle("Time Series Plot: Internet vs. Cellphone") 
+
+#Get the ratio of Internet user in cellphone
+internet_cellphone_user$Ratio <- internet_cellphone_user$Internet/internet_cellphone_user$Cellphone
+head(internet_cellphone_user)
+View(internet_cellphone_user)
+
+# Remove NA values in Ratio
+internet_cellphone_user <- internet_cellphone_user[complete.cases(internet_cellphone_user), ]
+
+# Store a vector of 4 numbers corresponding to each value which creates the boundaries for each quartile of the data.
+cuts = c(quantile(internet_cellphone_user$Ratio, 0), quantile(internet_cellphone_user$Ratio, 0.25), quantile(internet_cellphone_user$Ratio, 0.5), quantile(internet_cellphone_user$Ratio, 0.75), quantile(internet_cellphone_user$Ratio, 1))
+
+internet_cellphone_user$Ratio.bucket <- cut(internet_cellphone_user$Ratio, breaks = cuts)
+
+ggplot(aes(x = Cellphone, y = Ratio), data = subset(internet_cellphone_user, !is.na(Ratio.bucket))) + 
+  geom_point(aes(color = Ratio.bucket)) + 
+  geom_smooth() +
+  ggtitle("Internet user based on cellphone user") 
+
+
+```
+
+
+
