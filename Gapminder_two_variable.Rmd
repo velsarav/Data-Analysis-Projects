@@ -17,7 +17,7 @@ title: "Bivariate Analysis"
 # Copy and paste all of the code that you used for
 # your investigation, and submit it when you are ready.
 # ====================================================================
-```{r echo=FALSE, Load_the_Data}
+```{r}
 suppressMessages(library(reshape2))
 suppressMessages(library(plyr))
 suppressMessages(library(readxl))
