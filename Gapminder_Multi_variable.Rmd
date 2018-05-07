@@ -1,12 +1,9 @@
 ---
-title: "R Notebook"
-output:
-  html_notebook: default
-  html_document: default
+title: "Multivariate Analysis by Saravanan Natarajan"
 ---
 
 *** 
-### Quiz 111
+### Quiz 11
 
 # The Gapminder website contains over 500 data sets with information about
 # the world's population. Your task is to continue the investigation you did at the

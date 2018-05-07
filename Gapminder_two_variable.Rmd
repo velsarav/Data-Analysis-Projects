@@ -1,9 +1,5 @@
 ---
-title: "R Notebook"
-output:
-  html_notebook: default
-  html_document: default
-  pdf_document: default
+title: "Bivariate Analysis"
 ---
 
 ***
@@ -21,15 +17,14 @@ output:
 # Copy and paste all of the code that you used for
 # your investigation, and submit it when you are ready.
 # ====================================================================
-```{r}
-
-library(reshape2)
-library(plyr)
-library(readxl)
-library(ggplot2)
-library(tidyr)
-library(dplyr)
-library(gridExtra)
+```{r echo=FALSE, Load_the_Data}
+suppressMessages(library(reshape2))
+suppressMessages(library(plyr))
+suppressMessages(library(readxl))
+suppressMessages(library(ggplot2))
+suppressMessages(library(tidyr))
+suppressMessages(library(dplyr))
+suppressMessages(library(gridExtra))
 
 #Data Munging
 agriculture_gdp <- read_excel('Agriculture (p of GDP).xlsx', sheet = 1)
