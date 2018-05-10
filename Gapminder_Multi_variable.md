@@ -30,16 +30,96 @@ output:
 # your investigation, and submit it when you are ready.
 # ============================================================================================
 
-```{r}
 
+```r
 library(reshape2)
+```
+
+```
+## Warning: package 'reshape2' was built under R version 3.4.3
+```
+
+```r
 library(plyr)
 library(readxl)
+```
+
+```
+## Warning: package 'readxl' was built under R version 3.4.4
+```
+
+```r
 library(ggplot2)
 library(tidyr)
-library(dplyr)
-library(gridExtra)
+```
 
+```
+## Warning: package 'tidyr' was built under R version 3.4.3
+```
+
+```
+## 
+## Attaching package: 'tidyr'
+```
+
+```
+## The following object is masked from 'package:reshape2':
+## 
+##     smiths
+```
+
+```r
+library(dplyr)
+```
+
+```
+## Warning: package 'dplyr' was built under R version 3.4.2
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:plyr':
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+library(gridExtra)
+```
+
+```
+## Warning: package 'gridExtra' was built under R version 3.4.1
+```
+
+```
+## 
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 #Read excel
 internet_user <- read_excel('Internet user per 100.xlsx', sheet = 1)
 cellphone_user <- read_excel('cell phone per 100.xlsx', sheet = 1)
@@ -79,20 +159,75 @@ p2 <- ggplot(aes(Year, Cellphone), data = cellphone_user) +
   labs(color="Year Joined", title = 'Cellphone user per 100')
 
 grid.arrange(p1, p2, ncol=1)
+```
 
+![](Gapminder_Multi_variable_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
+```r
 #Merge internet and Cellphone user
 internet_cellphone_user <- inner_join(internet_user, cellphone_user)
-summary(internet_cellphone_user)
-summary(internet_cellphone_user$decade)
+```
 
+```
+## Joining, by = c("Country", "Year", "decade")
+```
+
+```r
+summary(internet_cellphone_user)
+```
+
+```
+##    Country               Year         Internet               decade    
+##  Length:3644        Min.   :1990   Min.   : 0.0000   (1960,1970]:   0  
+##  Class :character   1st Qu.:1997   1st Qu.: 0.2686   (1970,1980]:   0  
+##  Mode  :character   Median :2002   Median : 3.5496   (1980,1990]: 203  
+##                     Mean   :2002   Mean   :15.1896   (1990,2000]:1301  
+##                     3rd Qu.:2007   3rd Qu.:21.6962   (2000,2010]:1960  
+##                     Max.   :2011   Max.   :96.6184   NA's       : 180  
+##    Cellphone       
+##  Min.   :  0.0000  
+##  1st Qu.:  0.8311  
+##  Median : 13.1752  
+##  Mean   : 35.9454  
+##  3rd Qu.: 64.8833  
+##  Max.   :243.4980
+```
+
+```r
+summary(internet_cellphone_user$decade)
+```
+
+```
+## (1960,1970] (1970,1980] (1980,1990] (1990,2000] (2000,2010]        NA's 
+##           0           0         203        1301        1960         180
+```
+
+```r
 #Time Series plot
 ggplot(aes(Internet, Cellphone), data=internet_cellphone_user) +
   geom_jitter(alpha=.5, shape=21, fill=I("#F79420")) +
   ggtitle("Time Series Plot: Internet vs. Cellphone") 
+```
 
+![](Gapminder_Multi_variable_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
+
+```r
 #Get the ratio of Internet user in cellphone
 internet_cellphone_user$Ratio <- internet_cellphone_user$Internet/internet_cellphone_user$Cellphone
 head(internet_cellphone_user)
+```
+
+```
+##          Country Year Internet      decade   Cellphone Ratio
+## 1    Afghanistan 1990        0 (1980,1990] 0.000000000   NaN
+## 2        Albania 1990        0 (1980,1990] 0.000000000   NaN
+## 3        Algeria 1990        0 (1980,1990] 0.001857768     0
+## 4 American Samoa 1990        0 (1980,1990] 0.000000000   NaN
+## 5        Andorra 1990        0 (1980,1990] 0.000000000   NaN
+## 6         Angola 1990        0 (1980,1990] 0.000000000   NaN
+```
+
+```r
 View(internet_cellphone_user)
 
 # Remove NA values in Ratio
@@ -107,9 +242,17 @@ ggplot(aes(x = Cellphone, y = Ratio), data = subset(internet_cellphone_user, !is
   geom_point(aes(color = Ratio.bucket)) + 
   geom_smooth() +
   ggtitle("Internet user based on cellphone user") 
-
+```
 
 ```
+## `geom_smooth()` using method = 'gam'
+```
+
+```
+## Warning: Removed 99 rows containing non-finite values (stat_smooth).
+```
+
+![](Gapminder_Multi_variable_files/figure-html/unnamed-chunk-1-3.png)<!-- -->
 
 
 
