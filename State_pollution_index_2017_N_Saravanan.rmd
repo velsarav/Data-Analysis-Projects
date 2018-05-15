@@ -1,0 +1,429 @@
+ 
+### States pollution Index in 2017 
+
+========================================================
+      
+by Saravanan Natarajan
+
+========================================================
+
+
+### Abstract
+The Annual summary file from Environmental Protection Agency's Air Quality 
+System for year 2017 consists of various data sets related to pollution.
+Ground-level ozone and airborne particles are the two pollutants 
+that pose the greatest threat to human health. In this project we will 
+explore the good and sensitive days in the year 2017 for the various States
+in USA.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
+suppressMessages(library(reshape))
+suppressMessages(library(reshape2))
+suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))
+suppressMessages(library(maps))
+suppressMessages(library(RColorBrewer))
+suppressMessages(library(GGally))
+suppressMessages(library(scales))
+suppressMessages(library(memisc))
+suppressMessages(library(gridExtra))
+suppressMessages(library(tidyverse))
+suppressMessages(library(ggthemes))
+```
+
+### Dataset
+Get the data from the CSV file and explore
+
+```{r echo=FALSE, warning=FALSE, Load_the_Data}
+air_quality_data <- read.csv('annual_aqi_by_county_2017.csv')
+str(air_quality_data)
+```
+
+## Introduction to dataset
+The data set consists of 1044 observations with 19 variables for the year 2017.
+
+The complete details about dataset is provided in
+https://www.epa.gov/outdoor-air-quality-data/about-air-data-reports#aqi
+
+Each row of the AQI Report lists summary values for one year for one county.
+
+https://www.airnow.gov/index.cfm?action=aqibasics.aqi
+
+The summary values include both qualitative measures (days of the year having 
+"good" air quality, for example) and descriptive statistics (median AQI value, 
+for example).
+
+## Univariate analysis 
+
+```{r echo=FALSE, warning=FALSE, Univariate_Summary}
+summary(air_quality_data)
+names(air_quality_data)
+```
+
+The summary shows various states and their counties for the year 2017, with 19
+variable model fitting functions.
+
+# AQI Days plots
+
+```{r echo=FALSE, warning=FALSE, fig.width=18, fig.height=9, AQI_Days}
+p1 <- ggplot(aes(Good.Days), data=air_quality_data) +
+  geom_histogram(binwidth = 5, fill="green", color="black")
+
+p2 <- ggplot(aes(Moderate.Days), data=air_quality_data) +
+  geom_histogram(binwidth = 1, fill="orange", color="black")
+
+p3 <- ggplot(aes(Unhealthy.for.Sensitive.Groups.Days), data=air_quality_data) +
+  geom_histogram(binwidth = 0.5, fill="blue", color="black")
+
+p4 <- ggplot(aes(Unhealthy.Days), data=air_quality_data) +
+  geom_histogram(binwidth = 1, fill="yellow", color="black")
+
+p5 <- ggplot(aes(Very.Unhealthy.Days), data=air_quality_data) +
+  geom_histogram(binwidth = 0.5, fill="purple", color="black")
+
+p6 <- ggplot(aes(Hazardous.Days), data=air_quality_data) +
+  geom_histogram(binwidth = 0.5, fill="red", color="black")
+
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol= 2)
+```
+
+
+Histogram plot was used to view the various types of AQI, counts and range.
+The binwith and color was chosen based on the number of days in the year
+and AQI value of days
+
+# Pollutant measured
+
+A daily index value is calculated for each air pollutant measured. 
+The highest of those index values is the AQI value, and the pollutant 
+responsible for the highest index value is the "Main Pollutant." 
+These columns give the number of days each pollutant measured was the main 
+pollutant. A blank column indicates a pollutant not measured in the 
+county or CBSA.
+
+```{r echo=FALSE, warning=FALSE, fig.width=18, fig.height=9, Pollutant_measured}
+p1 <- ggplot(air_quality_data, aes(Days.CO)) +
+  geom_histogram(binwidth = 10, fill="yellow", color="black")
+
+p2 <- ggplot(air_quality_data, aes(Days.NO2)) +
+  geom_histogram(binwidth = 10, fill="purple", color="black")
+
+p3 <- ggplot(air_quality_data, aes(Days.Ozone)) +
+  geom_histogram(binwidth = 5, fill="red", color="black")
+
+p4 <- ggplot(air_quality_data, aes(Days.SO2)) +
+  geom_histogram(binwidth = 10, fill="orange", color="black")
+
+p5 <-ggplot(air_quality_data, aes(Days.PM2.5)) +
+  geom_histogram(binwidth = 5, fill="blue", color="black")
+
+p6 <- ggplot(air_quality_data, aes(Days.PM10)) +
+  geom_histogram(binwidth = 10, fill="green", color="black")
+
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol= 2)
+```
+
+The graph infers that Ozone and PM2.5 were the Main pollutants. CO was least 
+measured pollutant in the county.
+
+# Simple Univariate challenge
+
+https://leanpub.com/exdata
+
+Which counties in the United States have the highest levels of ozone pollution
+in year 2017?
+
+Get the data directly by plotting Days.with.AQI and State, choose Days.with.AQI, 
+since it is the highest of daily index value calculated for each air pollutant 
+measured.
+
+```{r echo=FALSE, warning=FALSE, Days.with.AQI }
+ggplot(aes(Days.with.AQI,air_quality_data$State), data=air_quality_data) +
+  geom_point(alpha = 0.5, size = 1, shape=21, position = 'jitter', fill=I("#F79420")) 
+```
+
+
+Create variable called state_ranking with log 10 of Days.with.AQI. 
+
+```{r echo=FALSE, warning=FALSE, Ranking}
+
+state_ranking <- group_by(air_quality_data, State, County) %>%
+  summarize(air_quality_data_log10 = log10(Days.with.AQI)) %>%
+  as.data.frame %>%
+  arrange(desc(air_quality_data_log10))
+
+str(state_ranking)
+
+```
+
+
+Highly polluted States list
+
+```{r echo=FALSE, warning=FALSE, Ranking_head}
+head(state_ranking, 10)
+```
+
+
+Least polluted States list
+
+```{r echo=FALSE, warning=FALSE, Ranking_tail}
+tail(state_ranking, 10)
+```
+
+Interestingly California is both in the list of high and low polluted state.
+The county Del Norte in California is least polluted.
+Counties Fresno, Kings, and Riverside in California were highly polluted.
+
+
+## Bivariate analysis
+
+The missing parameter in the dataset is the mean value of Good and Sensitive
+days in the year 2017
+
+```{r echo=FALSE, warning=FALSE, Mean_Good_Sensitive_AQI}
+air_quality_data.pc_AQI <- air_quality_data %>% 
+  group_by(State, County, Days.with.AQI) %>%
+  summarize(mean_Good_AQI = mean(Good.Days/Days.with.AQI),
+            mean_Sensitive_AQI = mean(Unhealthy.for.Sensitive.Groups.Days/Days.with.AQI)
+            )
+
+air_quality_data.pc_AQI <- arrange(air_quality_data.pc_AQI, State, County, Days.with.AQI)
+
+head(air_quality_data.pc_AQI, 20)
+```
+
+# Plots
+
+The values can be plotted against the number of days in the year having an AQI
+value
+
+```{r echo=FALSE, warning=FALSE, Mean_Good_Sensitive}
+p1 <- ggplot(aes(x = mean_Good_AQI, y = Days.with.AQI), data = air_quality_data.pc_AQI) +
+  geom_jitter(alpha=.5, shape=21, fill=I("#F79420"))
+
+p2 <- ggplot(aes(x = mean_Sensitive_AQI, y = Days.with.AQI), data = air_quality_data.pc_AQI) +
+  geom_jitter(alpha=.5, shape=21, fill=I("#F71420"))
+
+grid.arrange(p1, p2, ncol=1)
+```
+
+
+The plot provides the outlier values of both good days AQI and the sensitive 
+days AQI.
+
+## Multivariate analysis
+
+# Sensitive group days vs Good days in each State
+
+```{r echo=FALSE, warning=FALSE, fig.width=12, fig.height=6, pair_plots}
+ggplot(air_quality_data, aes(Good.Days, Unhealthy.for.Sensitive.Groups.Days)) +
+  geom_point(aes(color = State), size = 3, alpha = 1/2) 
+```
+
+Scatterplot help us to view the number of Sensitive group days vs Good days 
+for each State.
+
+
+# Integrate with States Map
+
+Back to our least polluted and most polluted states, in this section we will
+plot the data in US map, the main challenge is EPA data don't have the 
+states lat and long, finally got the answer from
+
+https://ekburchfield.files.wordpress.com/2017/05/web_scraping_in_r.pdf
+
+https://s3.amazonaws.com/udacity-hosted-downloads/ud651/GeographyOfAmericanMusic.html
+
+https://github.com/tidyverse/tidyverse/issues/66
+
+# Map data with State abbreviation
+
+```{r echo=FALSE, warning=FALSE, map_data_with_state_abbrevation} 
+data(state)
+states <- data.frame(state.abb, state.name, state.area, state.center,
+                     state.division, state.region, state.x77)
+
+states <- subset(states, ! state.abb %in% c("HI", "AK"))
+
+head(states, 5)
+```
+
+# Map data with county details
+
+```{r echo=FALSE, warning=FALSE, map_data_with_county}
+map_usa <- maps::map("county",".", exact = FALSE, plot = FALSE, fill = TRUE) %>%
+  fortify()
+
+#Rename the region and subregion to State and County
+map_usa$State <- str_to_title(map_usa$region)
+map_usa$County <- str_to_title(map_usa$subregion)
+head(map_usa)
+```
+
+# Merge mean_Good_AQI data with map data
+
+```{r echo=FALSE, warning=FALSE, Merge_Good_AQI_Map_data}
+states_AQI <- merge(air_quality_data.pc_AQI, map_usa, by = c("State", "County"))
+
+states_AQI <- states_AQI[order(states_AQI$order), ]
+
+head(states_AQI,20)
+```
+
+# Plot the data
+
+```{r echo=FALSE, warning=FALSE, Merge_Good_AQI_Map_data_plot}
+
+ggplot(data = states_AQI, aes(x = long, y = lat, group = group)) +
+  geom_polygon() + 
+  geom_path(colour = 'white', linestyle = 2) + 
+  coord_map() +
+  theme(legend.position = "bottom") +
+  geom_text(data = states, aes(x = x, y = y, label = state.abb, group = NULL), 
+            size = 4, 
+            colour="red") +
+  geom_polygon(aes(fill = mean_Good_AQI)) +
+  labs(fill = "") +
+  guides(fill = guide_colorbar(barwidth = 10, barheight = 0.5)) +
+  ggtitle("Percent Good Days of total measured days")
+
+```
+
+Plotted the county boundaries with the state name, the region most polluted was
+captured as darker region it means lower percentage of good days in the year.
+The colour scales were captured in the bottom.
+
+### Correlation between Good days AQI and Sensitive Days AQI
+
+Complete by finding the correlation between good AQI days and 
+the sensitive AQI days.
+
+
+```{r echo=FALSE, warning=FALSE, correlation_value}
+
+corr_Value = as.character(round(cor(states_AQI$mean_Good_AQI,states_AQI$mean_Sensitive_AQI), 2))
+
+corr_Value
+```
+
+The correlation value r = -0.66
+
+
+### Final Plots and Summary
+
+Number of days in the year having an AQI value 0 through 50 means the good days
+for each counties. Similar AQI days in each counties will help us to get the 
+healthy states in USA. Florida and District Of Columbia were chosen to plot
+the good AQI values for each counties.
+
+http://paulorenato.com/index.php/171
+
+
+```{r echo=FALSE, warning=FALSE, states_pair_plots}
+
+air_quality_data_Florida <- filter(air_quality_data, State == "Florida")
+air_quality_data_District_Of_Columbia <- filter(air_quality_data, State == "District Of Columbia")
+
+p1 <- ggplot(aes(x = Good.Days), data = air_quality_data_Florida) +
+  geom_histogram(binwidth = 1) +
+  facet_wrap(~State, scales="free") + 
+  labs(x = "Number of days in the year having Good AQI", 
+       y = "Similar AQI days in counties",
+      title = "Good AQI values for counties in Florida ")
+
+p2 <- ggplot(aes(x = Good.Days), data = air_quality_data_District_Of_Columbia) +
+  geom_histogram(binwidth = 0.1) +
+  facet_wrap(~State, scales="free") + 
+  labs(x = "Number of days in the year having Good AQI", 
+       y = "Similar AQI days in counties",
+      title = "Good AQI values for counties in District Of Columbia")
+
+grid.arrange(p1, p2, ncol = 1)
+```
+
+Binwidht and the scales in facet_wrap helped to get the clear 
+view of good AQI days in each county.
+
+In the above graph Florida have the maximum y scale of 4, which means 4 
+counties have 131 good AQI days, the counties were Miami-Dade, Palm Beach, 
+Pinellas and Sarasota. Same applicable for 149 good AQI days.
+
+District Of Columbia state only have one county with 157 good AQI days in
+the year 2017.
+
+
+### Map plotting of Sensitive AQI days
+
+To get the bird's eye view of pollution in each state go back to
+map plot, in order to get better picture of pollution in each state,
+need to consider the unhealthy days for sensitive groups with AQI 
+level 101 to 150.
+
+
+```{r echo=FALSE, warning=FALSE, Sensitive_day_plot}
+
+states_AQI_map <- ggplot(data = states_AQI, aes(x = long, y = lat, group = group)) +
+  geom_polygon() + 
+  geom_path(colour = 'grey', linestyle = 2) + 
+  coord_map() +
+  theme(legend.position = "bottom") +
+  geom_text(data = states, aes(x = x, y = y, label = state.abb, group = NULL), 
+            size = 4, 
+            colour="red") +
+  geom_polygon(aes(fill = mean_Sensitive_AQI)) +
+  labs(fill = "") +
+  guides(fill = guide_colorbar(barwidth = 10, barheight = 0.5)) +
+  ggtitle("Percent Sensitive Days of total measured days")
+
+states_AQI_map
+```
+
+
+Explore further based on state area
+
+```{r echo=FALSE, warning=FALSE, Calculate_top_area}
+top_area <- states %>% 
+  filter(state.area > 100000)
+
+head(top_area[, 1:3])
+```
+
+```{r echo=FALSE, warning=FALSE, Plot_based_on_top_area}
+top_area_map_in_us <- states_AQI_map + geom_point(data = top_area, 
+                                                  inherit.aes = F, aes(x, y), size = 3,
+                                                  color = "green", alpha = 0.5) +
+  labs(subtitle = "States with area greater than 100000")
+
+top_area_map_in_us
+```
+
+The green dot indicates the top biggest states in US
+
+
+### Reflection
+
+  While starting the project want to plot the pollution levels of various 
+states in USA, after exploring the available variables in the datasets the 
+direction changed to find the least polluted and most polluted states. 
+
+  The simple univariate challenge gave a lots of thought about
+how to handle the data. 
+
+  The next interesting part of finding is the correlation between 
+sensitive AQI days with respect to good AQI days and it reflected a strong 
+downhill (negative) linear relationship between Good days AQI and Sensitive
+days AQI.
+
+  Further exploring the number of days good AQI (value 0 through 50) and 
+number of days unhealthy for sensitive AQI (value 51 through 100), 
+it was interesting to plot the data in US map, so that we can get the complete
+view of pollution in each counties in US. 
+
+ There is lots of room to further explore the same data set for relationship
+between ozone and PM2.5 pollutant, identifying which is the most polluting 
+component in each state, how the population in each state will impact the 
+pollution and vice versa.
+
+
+
