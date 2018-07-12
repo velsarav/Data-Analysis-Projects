@@ -8,3 +8,6 @@ The same available in (http://rpubs.com/velsarav/386080)
 * Project 5: Wrangle and Analyze Data
   * For html view `wrangle_report_N_Saravanan.html` and `act_report_N_Saravanan.html`
   * For pdf view `wrangle_report_N_Saravanan.pdf` and `act_report_N_Saravanan.pdf`
+* Project 6: Air Quality Index in Eruope
+  * https://public.tableau.com/profile/saravanan.natarajan#!/vizhome/EuropeanPollutionProject/AirQualityinEurope
+  * A_story_about_Air_Quality_in_Europe_N_Saravanan.pdf
