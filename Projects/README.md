@@ -4,7 +4,8 @@
 ## Title: Explore and Summarize Data
 [States Pollution Index in 2017 using R](http://rpubs.com/velsarav/389546)
 ## Title: Wrangle and Analyze Data
-[Data cleaning using Python](https://github.com/velsarav/Data-Science/blob/master/Projects/Wrangle%20and%20Analyze%20Data/Jupyter_Notebook/wrangle_act.ipynb)
+[Data collection and cleaning using Python](https://github.com/velsarav/Data-Science/blob/master/Projects/Wrangle%20and%20Analyze%20Data/Jupyter_Notebook/wrangle_act.ipynb)
+
 [Data Analysis and Insights using Python](https://github.com/velsarav/Data-Science/blob/master/Projects/Wrangle%20and%20Analyze%20Data/Jupyter_Notebook/act_report.ipynb)
 ## Title: Create a Tableau Story
 [Air Quality Index in Eruope](https://github.com/velsarav/Data-Science/blob/master/Projects/Create%20a%20Tableau%20Story/A_story_about_Air_Quality_in_Europe_N_Saravanan.pdf)
