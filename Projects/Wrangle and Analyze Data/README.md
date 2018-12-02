@@ -7,10 +7,10 @@ Gathering, assessing and cleaning of data is called data wragnling. Using Python
 * Download the entire set of tweet's in JSON format using Python's Tweepy library.
 
 ## Project details
-### wrangle_act.ipynb
+### [wrangle_act.ipynb](https://github.com/velsarav/Data-Science/blob/master/Projects/Wrangle%20and%20Analyze%20Data/Jupyter_Notebook/wrangle_act.ipynb)
 * Assess the data for quality and tidiness issues using using visual and programming techniques.
 * Clean the data to get high quality and tidy master pandas DataFrame.
 * Stored the clean in a SQLite database *twitter_archive_master.db* 
 * Unit test
-### act_report.ipynb
+### [act_report.ipynb](https://github.com/velsarav/Data-Science/blob/master/Projects/Wrangle%20and%20Analyze%20Data/Jupyter_Notebook/act_report.ipynb)
 * Generate various insights and visualization from the database using Jupyter Notebook 
