@@ -1,8 +1,8 @@
 # Python
 
 ## Fundamentals of Scalable Data Science
-### Title: Mathematical Foundations on Exploratory Data Analysis
-### Title: Data Visualization
+### Title: [Mathematical Foundations on Exploratory Data Analysis](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/MathematicalFoundationsOnEDA.ipynb)  
+### Title: [Data Visualization](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/DataVisualization.ipynb)
 
 ## Advanced Machine Learning and Signal Processing  
 ### Title: [Data Classification](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/Classification.ipynb)
@@ -15,12 +15,12 @@ Predict the different movement of smartphone accelerometer dataset using cluster
 Feature engineering improves the prediction model performance.
 
 ## Applied AI with DeepLearning  
-### [Building and serialising Keras models](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/Keras.ipynb)
+### Title: [Building and serialising Keras models](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/Keras.ipynb)
 Create a Keras model by loading a dataset, preporcessing input data, building a Sequential Keras model and compiling the model with a training configuration. Train the model on the training data and evaluate it on the test set.
 
-### [Anomaly Detection](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/AnomalyDetection.ipynb)
+### Title: [Anomaly Detection](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/AnomalyDetection.ipynb)
 Train the neural network from healthy and broken samples and at later stage hook it up to a message queue for real-time anomaly detection.
 
-### [Apache SystemML](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/SystemML.ipynb)
+### Title: [Apache SystemML](https://github.com/velsarav/Data-Science/blob/master/Assignments/Python/SystemML.ipynb)
 Scale linear algebra operations from a single machine to multiple machines, memory and CPU cores using Apache SystemML.
 Note: This will help to go understand the behind the scenes excution in Keras.
