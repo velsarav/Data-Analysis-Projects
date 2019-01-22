@@ -8,7 +8,7 @@ My curiosity leads to accomplish the following courses
 * [Advanced Machine Learning and Signal Processing](https://www.youracclaim.com/badges/3b2e30af-6171-468e-af44-a06fccaa29ef/linked_in_profile)
 * [Applied AI with DeepLearning](https://www.youracclaim.com/badges/cd39a2c3-64c2-4f5d-a68e-f61fc2aa2fa8/linked_in_profile).
 
-After completing the  prerequisites course Data Analyst Nanodegree, currently pursuing the first term in [Self Driving Car Engineer Nanodegree](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013)
+After completing the  prerequisites course Data Analyst Nanodegree, currently pursuing the first term in [Self Driving Car Engineer Nanodegree](https://github.com/velsarav/Data-Science/blob/master/Projects/Self_Driving_Car.png)
 
 
 Some of the interesting assignments and projects in my learning journey was captured here.
