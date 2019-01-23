@@ -30,12 +30,12 @@ Challenges I faced
 * The lines can be of both curve and straight format
 * There is also white car switching the lane
 
-### 2. Identify potential shortcomings with your current pipeline
+### 2. Potential shortcomings
 
 * Pipeline slope conditions used for detecting right and left lanes is not robust enough for the steep curves in the road
 * Processing is quite slow on the video compared to the images
 
-### 3. Suggest possible improvements to your pipeline
+### 3. Possible improvements
 
 * Better average mechanism for finding the slope and center of lanes
 * Make all the lane line colors to white before doing canny and hough transform
