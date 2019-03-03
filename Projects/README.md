@@ -12,3 +12,6 @@
 
 ## Title: Finding Lane Lines on the Road
 [Detect the lane lines in road image and video stream using Python](https://github.com/velsarav/Data-Science/tree/master/Projects/Finding%20Lane%20Lines)
+
+## Title: Advanced Lane Finding
+[Software pipeline to identify the lane boundaries in a video from a front-facing camera on a car](https://github.com/velsarav/Data-Science/tree/master/Projects/Advanced%20Lane%20Finding)
