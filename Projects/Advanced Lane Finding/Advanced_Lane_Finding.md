@@ -133,7 +133,7 @@ In the next frame of video you don't need to do a blind search again, but instea
 #### 5. Radius of curvature of the lane
 
 Assume the position of the vehicle with respect to center. We have threshold image with estimated pixels belong to left and right lanes and fit a polynomial to those pixel position. Next we will calculate the  
-[Radius of curvature] (https://www.intmath.com/applications-differentiation/8-radius-curvature.php) for the fit.
+[Radius of curvature](https://www.intmath.com/applications-differentiation/8-radius-curvature.php) for the fit.
 
 Function `lane_curvature()` calculates the left curvature , right curvature and center
 
@@ -160,7 +160,7 @@ Here's a [Project video result](./output_video.mp4)
 
 * Birds-eye view of the lane to process the image was new to learn.
 * Getting the radius of curvature using sliding window mechanism was quite interesting.
-* Adding the class based method to get the prior values in sliding window as challenging
+* Adding the class based method to get the prior values in sliding window was challenging
 * The road color change and the steep curves in challenge video makes the pipeline to fail most of the time.
 * Need more technique to smooth the curve and improve accuracy.
 * Sliding window is not suffice for hypothetical cases such as road at night or road segment with significant slope will fail in this pipeline. Adding better outliner rejection and low-pass filter will help further.
