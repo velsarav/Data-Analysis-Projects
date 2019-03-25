@@ -31,9 +31,7 @@ The goals / steps of this project are the following:
 
 ## Rubric Points
 
-The [rubric](https://review.udacity.com/#!/rubrics/571/view) points were individually addressed in the implementation and described in code and [documentation](./Advanced_Lane_Finding.md)
-
-The code for below steps is contained in IPython notebook  [Advanced_Lane_Finding.ipynb](./Advanced_Lane_Finding.ipynb) 
+The [rubric](https://review.udacity.com/#!/rubrics/571/view) points were individually addressed in the implementation and described in [IPython notebook](./Advanced_Lane_Finding.ipynb) and [documentation](./Advanced_Lane_Finding.md)
 
 --- 
 
