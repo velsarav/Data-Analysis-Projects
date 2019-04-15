@@ -15,3 +15,9 @@
 
 ## Title: Advanced Lane Finding
 [Software pipeline to identify the lane boundaries in a video from a front-facing camera on a car](https://github.com/velsarav/Data-Science/tree/master/Projects/Advanced%20Lane%20Finding)
+
+## Title: Traffic Sign classifier
+[Classify various traffic signs using Deep Learning](https://github.com/velsarav/Traffic-Sign-Classifier)
+
+## Title: Behavioral Cloning
+[Simulate the autonomous car and train it using convolutional neural network so that it drives successfully around the track](https://github.com/velsarav/behavioral-cloning)
