@@ -21,3 +21,6 @@
 
 ## Title: Behavioral Cloning
 [Simulate the autonomous car and train it using convolutional neural network so that it drives successfully around the track](https://github.com/velsarav/behavioral-cloning)
+
+## Title: Extended Kalman Filter
+[Utilize a Kalman filter to estimate the state of a moving object of interest with noisy LIDAR and RADAR measurements in C++](https://github.com/velsarav/project-extended-kalman-filter)
