@@ -1,7 +1,7 @@
 # Projects
 
 ## Title: Kidnapped Vehicle
-[The goal of this project is to implement a 2-dimensional particle filter in C++ to get back the kidnapped robot to initial location](https://github.com/velsarav/Kidnapped-Vehicle-Project)
+[The goal of this project is to implement a 2-dimensional particle filter in C++ to identify the location of the robot using GPS estimate, map of the location, sensor and control data.](https://github.com/velsarav/Kidnapped-Vehicle-Project)
 
 ## Title: Extended Kalman Filter
 [Utilize a Kalman filter to estimate the state of a moving object of interest with noisy LIDAR and RADAR measurements in C++](https://github.com/velsarav/project-extended-kalman-filter)
