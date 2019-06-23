@@ -1,5 +1,9 @@
 # Projects
 
+## Highway Driving
+
+[Design a path planner that is able to create smooth, safe paths for the car to follow along a 3 lane highway with traffic.](https://github.com/velsarav/Highway-Driving)
+
 ## Title: Kidnapped Vehicle
 [The goal of this project is to implement a 2-dimensional particle filter in C++ to identify the location of the robot using GPS estimate, map of the location, sensor and control data.](https://github.com/velsarav/Kidnapped-Vehicle-Project)
 
