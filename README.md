@@ -13,3 +13,6 @@ After completing the  prerequisites course Data Analyst Nanodegree,completed [Se
 
 Some of the interesting assignments and projects in my learning journey was captured here.
 
+Documentation about [Functional Safety — ISO 26262](https://medium.com/@saravanannatarajan/functional-safety-bfa8e6700d95)
+
+
