@@ -1,11 +1,11 @@
 # Projects - Self Driving Car Nanodegree
 ---
 
-## PID Controller
+## Title: PID Controller
 
 [Implement a PID controller in C++ to maneuver the vehicle around the track!](https://github.com/velsarav/pid-controller)
 
-## Highway Driving
+## Title: Highway Driving
 
 [Design a path planner that is able to create smooth, safe paths for the car to follow along a 3 lane highway with traffic.](https://github.com/velsarav/Highway-Driving)
 
