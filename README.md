@@ -15,4 +15,6 @@ Some of the interesting assignments and projects in my learning journey was capt
 
 Documentation about [Functional Safety — ISO 26262](https://medium.com/@saravanannatarajan/functional-safety-bfa8e6700d95)
 
+Completed projects reviewed by Udacity reviewer available [here](https://github.com/velsarav/Data-Science/tree/master/Projects).
+
 
